@@ -86,7 +86,15 @@ docker compose exec n8n wget -qO- http://sandbox-api:8080/healthz
 docker compose logs sandbox-api | grep -i runner
 ```
 
-Open <http://localhost:5678> and create the owner account.
+### 7. First login
+
+Open <http://localhost:5678>. On the first visit, n8n takes you through these steps:
+
+1. **Create the owner account.** Enter an email address, name and password. The owner is the instance's administrator, and the account is stored in the `n8n-data` volume. There is no default login, so the first person to open the page becomes the owner. Do this right after starting the stack.
+2. **Tell n8n about your company.** A short questionnaire asks about your company, your role and how you plan to use n8n. n8n uses the answers to tailor its suggestions.
+3. **Get a free license key.** n8n offers to email you a free license key for the Community Edition, which unlocks some extra features. Enter your email address, then copy the key from the email. To activate it, go to **Settings → Usage and plan → Enter activation key**. You can also request the key later from the same page.
+
+Your instance is still installed locally if you register for the key, but this step does send your email address to n8n.
 
 ## Day-to-day operations
 
