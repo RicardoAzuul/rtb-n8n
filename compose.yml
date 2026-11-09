@@ -75,7 +75,7 @@ services:
       SANDBOX_RUNNER_CONTROL_GRPC_TLS_CLIENT_CA_FILE: /tls/runner/ca.crt
     volumes:
       - sandbox-tls:/tls:ro
-    # Never expose this container's ports publicly â it runs privileged Docker-in-Docker.
+    # Never expose this container's ports publicly — it runs privileged Docker-in-Docker.
 
   n8n:
     image: docker.io/n8nio/n8n:${N8N_VERSION}

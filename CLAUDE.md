@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A self-hosted n8n deployment via Docker Compose, derived from n8n's official `get-n8n-compose.yml` (see https://docs.n8n.io/deploy/host-n8n/install-options/install-using-docker-compose). There is no application code, build, lint, or test suite — the repo is configuration: [compose.yml](compose.yml), [example.env](example.env), [generate-secrets.sh](generate-secrets.sh), and [searxng-settings.yml](searxng-settings.yml).
+A self-hosted n8n deployment via Docker Compose, derived from n8n's official `get-n8n-compose.yml` (see https://docs.n8n.io/deploy/host-n8n/install-options/install-using-docker-compose). There is no application code or build — the repo is configuration: [compose.yml](compose.yml), [example.env](example.env), [generate-secrets.sh](generate-secrets.sh), and [searxng-settings.yml](searxng-settings.yml).
 
 ## Commands
 
@@ -20,6 +20,16 @@ docker compose exec n8n wget -qO- http://sandbox-api:8080/healthz
 docker compose logs sandbox-api | grep -i runner
 curl -sf http://localhost:5678/healthz
 ```
+
+## CI
+
+[.github/workflows/ci.yml](.github/workflows/ci.yml) runs on pushes to `main` and on PRs:
+- `docker compose config` against `example.env`, plus a check that only `n8n` publishes ports
+- `yamllint --strict` (rules in [.yamllint.yml](.yamllint.yml))
+- `shellcheck generate-secrets.sh`
+- a smoke test of `generate-secrets.sh` (all secrets replaced with 64-char hex, the two sandbox API keys match, mode 600, non-secret lines untouched)
+
+New services that need a published port must be added to the port check's allowlist in the workflow.
 
 ## Architecture
 

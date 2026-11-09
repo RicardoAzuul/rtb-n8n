@@ -1,0 +1,14 @@
+extends: default
+
+rules:
+  # compose.yml has long image references and env values that can't be wrapped.
+  line-length: disable
+  document-start: disable
+  # GitHub Actions uses a bare `on:` key.
+  truthy:
+    check-keys: false
+  # compose.yml follows n8n's upstream style: trailing per-service comments at
+  # key indentation and single-space inline comments.
+  comments-indentation: disable
+  comments:
+    min-spaces-from-content: 1
